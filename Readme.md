@@ -1,0 +1,8 @@
+# How to display a non-persistent object's Detail View from the Navigation
+
+
+<p><strong>This is an obsolete example.</strong> This example is applicable to XAF versions prior to 16.1. In 16.1, we significantly simplified the use of non-persistent objects. For details, refer to the  <a href="http://documentation.devexpress.com/#Xaf/CustomDocument3471"><u>How to: Display a Non-Persistent Object's Detail View from the Navigation</u></a> help topic.</p>
+
+<br/>
+
+
