@@ -1,3 +1,10 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [Issue.cs](./CS/NonPersistentDetailViewNavigationExample.Module/BusinessObjects/Issue.cs) (VB: [IssueStatictics.vb](./VB/NonPersistentDetailViewNavigationExample.Module/BusinessObjects/IssueStatictics.vb))
+* [IssueStatictics.cs](./CS/NonPersistentDetailViewNavigationExample.Module/BusinessObjects/IssueStatictics.cs) (VB: [IssueStatictics.vb](./VB/NonPersistentDetailViewNavigationExample.Module/BusinessObjects/IssueStatictics.vb))
+* **[Module.cs](./CS/NonPersistentDetailViewNavigationExample.Module/Module.cs) (VB: [Module.vb](./VB/NonPersistentDetailViewNavigationExample.Module/Module.vb))**
+<!-- default file list end -->
 # How to display a non-persistent object's Detail View from the Navigation
 
 
