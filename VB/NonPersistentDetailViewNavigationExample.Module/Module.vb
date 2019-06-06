@@ -27,12 +27,14 @@ Namespace NonPersistentDetailViewNavigationExample.Module
 
         Private Sub application_CustomProcessShortcut(ByVal sender As Object, ByVal e As CustomProcessShortcutEventArgs)
             If e.Shortcut.ViewId = "IssueStatistics_ListView" Then
-                Dim objectSpace As IObjectSpace = Application.CreateObjectSpace()
+                Dim nonPersistentObjectSpace As IObjectSpace = Application.CreateObjectSpace(GetType(IssueStatistics))
                 Dim issueStatistics As New IssueStatistics()
-                issueStatistics.ActiveIssuesCount = objectSpace.GetObjectsCount(GetType(Issue), CriteriaOperator.Parse("[Status] == 'Active'"))
-                issueStatistics.ClosedIssuesCount = objectSpace.GetObjectsCount(GetType(Issue), CriteriaOperator.Parse("[Status] == 'Closed'"))
-                issueStatistics.TotalIssuesCount = issueStatistics.ActiveIssuesCount + issueStatistics.ClosedIssuesCount
-                e.View = Application.CreateDetailView(objectSpace, issueStatistics, True)
+                Using objectSpace As IObjectSpace = Application.CreateObjectSpace(GetType(Issue))
+                    issueStatistics.ActiveIssuesCount = objectSpace.GetObjectsCount(GetType(Issue), CriteriaOperator.Parse("[Status] == 'Active'"))
+                    issueStatistics.ClosedIssuesCount = objectSpace.GetObjectsCount(GetType(Issue), CriteriaOperator.Parse("[Status] == 'Closed'"))
+                    issueStatistics.TotalIssuesCount = issueStatistics.ActiveIssuesCount + issueStatistics.ClosedIssuesCount
+                End Using
+                e.View = Application.CreateDetailView(nonPersistentObjectSpace, issueStatistics, True)
                 e.View.AllowEdit("CanEditIssueStatistics") = False
                 e.Handled = True
             End If
