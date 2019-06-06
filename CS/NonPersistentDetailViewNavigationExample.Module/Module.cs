@@ -24,17 +24,19 @@ namespace NonPersistentDetailViewNavigationExample.Module {
         }
 
         void application_CustomProcessShortcut(object sender, CustomProcessShortcutEventArgs e) {
-            if (e.Shortcut.ViewId == "IssueStatistics_ListView") {
-                IObjectSpace objectSpace = Application.CreateObjectSpace();
+            if(e.Shortcut.ViewId == "IssueStatistics_ListView") {
+                IObjectSpace nonPersistentObjectSpace = Application.CreateObjectSpace(typeof(IssueStatistics));
                 IssueStatistics issueStatistics = new IssueStatistics();
-                issueStatistics.ActiveIssuesCount =
-                    objectSpace.GetObjectsCount(typeof(Issue), 
-                    CriteriaOperator.Parse("[Status] == 'Active'"));
-                issueStatistics.ClosedIssuesCount =
-                    objectSpace.GetObjectsCount(typeof(Issue),
-                    CriteriaOperator.Parse("[Status] == 'Closed'"));
-                issueStatistics.TotalIssuesCount = issueStatistics.ActiveIssuesCount + issueStatistics.ClosedIssuesCount;
-                e.View = Application.CreateDetailView(objectSpace, issueStatistics, true);
+                using(IObjectSpace objectSpace = Application.CreateObjectSpace(typeof(Issue))) {
+                    issueStatistics.ActiveIssuesCount =
+                        objectSpace.GetObjectsCount(typeof(Issue),
+                        CriteriaOperator.Parse("[Status] == 'Active'"));
+                    issueStatistics.ClosedIssuesCount =
+                        objectSpace.GetObjectsCount(typeof(Issue),
+                        CriteriaOperator.Parse("[Status] == 'Closed'"));
+                    issueStatistics.TotalIssuesCount = issueStatistics.ActiveIssuesCount + issueStatistics.ClosedIssuesCount;
+                }
+                e.View = Application.CreateDetailView(nonPersistentObjectSpace, issueStatistics, true);
                 e.View.AllowEdit["CanEditIssueStatistics"] = false;
                 e.Handled = true;
             }
