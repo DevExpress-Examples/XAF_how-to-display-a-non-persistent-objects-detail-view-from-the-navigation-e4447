@@ -64,7 +64,6 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Xpo.v14.2">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Printing.v14.2.Core">
       <SpecificVersion>False</SpecificVersion>
